@@ -6,16 +6,23 @@ const int pinLaser = A1;
 
 int contribucionAmbiente = 0;
 
+int hallarContribucionAmbiente();
+
 void setup() {
+  pinMode(pinLaser, OUTPUT);
+  
+  contribucionAmbiente = hallarContribucionAmbiente();
+}
+
+void loop() {
+}
+
+int hallarContribucionAmbiente() {
   int tensionSinLaser = analogRead(pinTransistor);
 
-  pinMode(pinLaser, OUTPUT);
   digitalWrite(pinLaser, HIGH);
 
   int tensionConLaser = analogRead(pinTransistor);
 
-  contribucionAmbiente = tensionConLaser - tensionSinLaser;
-}
-
-void loop() {
+  return (tensionConLaser - tensionSinLaser);
 }
