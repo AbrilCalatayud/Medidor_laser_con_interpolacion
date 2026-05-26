@@ -8,16 +8,20 @@ int contribucionAmbiente = 0;
 
 int hallarContribucionAmbiente();
 
-void setup() {
+void setup()
+{
   pinMode(pinLaser, OUTPUT);
   
   contribucionAmbiente = hallarContribucionAmbiente();
 }
 
-void loop() {
+void loop()
+{
+  
 }
 
-int hallarContribucionAmbiente() {
+int hallarContribucionAmbiente()
+{
   int tensionSinLaser = analogRead(pinTransistor);
 
   digitalWrite(pinLaser, HIGH);
