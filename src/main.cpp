@@ -4,25 +4,25 @@
 const int pinTransistor = A0;
 const int pinLaser = A1;
 
-int contribucionAmbiente = 0;
+float contribucionAmbiente = 0;
 
 struct ParTensionDistancia
 {
-  int tension;
+  float tension;
   int distancia;
 };
 
 ParTensionDistancia tabla[] = {
   //modificar cuando se tengan los valores reales
-  {100, 50},
-  {200, 40},
-  {300, 30},
-  {400, 20},
-  {500, 10}
+  {1.5, 50},
+  {2.0, 40},
+  {3.0, 30},
+  {4.0, 20},
+  {4.5, 10}
 };
 
-int hallarContribucionAmbiente();
-int obtenerTensionParaInterpolacion();
+float hallarContribucionAmbiente();
+float obtenerTensionParaInterpolacion();
 void recalibrarSiSeMovio();
 
 void setup()
@@ -38,29 +38,29 @@ void setup()
 
 void loop()
 {
-  int tensionParaInterpolar = obtenerTensionParaInterpolacion();
+  float tensionParaInterpolar = obtenerTensionParaInterpolacion();
 
   //y luego interpolo con ese valor
   
   recalibrarSiSeMovio();
 }
 
-int hallarContribucionAmbiente()
+float hallarContribucionAmbiente()
 {
   digitalWrite(pinLaser, LOW);
 
-  int tensionSinLaser = analogRead(pinTransistor);
+  float tensionSinLaser = analogRead(pinTransistor);
 
   digitalWrite(pinLaser, HIGH);
 
-  int tensionConLaser = analogRead(pinTransistor);
+  float tensionConLaser = analogRead(pinTransistor);
 
   return (tensionConLaser - tensionSinLaser);
 }
 
-int obtenerTensionParaInterpolacion()
+float obtenerTensionParaInterpolacion()
 {
-  int tensionEnBruto = analogRead(pinTransistor);
+  float tensionEnBruto = analogRead(pinTransistor);
 
   return (tensionEnBruto - contribucionAmbiente);
 }
