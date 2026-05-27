@@ -21,6 +21,8 @@ ParTensionDistancia tabla[] = {
   {4.5, 10}
 };
 
+int tamanioTabla = 5; //modificable
+
 float hallarContribucionAmbiente();
 float obtenerTensionParaInterpolacion();
 void recalibrarSiSeMovio();
