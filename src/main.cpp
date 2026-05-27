@@ -23,6 +23,7 @@ ParTensionDistancia tabla[] = {
 
 int hallarContribucionAmbiente();
 int obtenerTensionParaInterpolacion();
+void recalibrarSiSeMovio();
 
 void setup()
 {
@@ -40,10 +41,14 @@ void loop()
   int tensionParaInterpolar = obtenerTensionParaInterpolacion();
 
   //y luego interpolo con ese valor
+  
+  recalibrarSiSeMovio();
 }
 
 int hallarContribucionAmbiente()
 {
+  digitalWrite(pinLaser, LOW);
+
   int tensionSinLaser = analogRead(pinTransistor);
 
   digitalWrite(pinLaser, HIGH);
@@ -58,4 +63,16 @@ int obtenerTensionParaInterpolacion()
   int tensionEnBruto = analogRead(pinTransistor);
 
   return (tensionEnBruto - contribucionAmbiente);
+}
+
+void recalibrarSiSeMovio()
+{
+  Serial.println("¿El sistema medidor sigue exactamente en el mismo lugar?");
+  Serial.println("Tocar S si es así, sino otra tecla.");
+  String entradaSerial = Serial.readString();
+
+  if(entradaSerial == "S" || entradaSerial == "s")
+  {
+    contribucionAmbiente = hallarContribucionAmbiente();
+  }
 }
