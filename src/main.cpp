@@ -22,6 +22,7 @@ ParTensionDistancia tabla[] = {
 };
 
 int hallarContribucionAmbiente();
+int obtenerTensionParaInterpolacion();
 
 void setup()
 {
@@ -32,7 +33,9 @@ void setup()
 
 void loop()
 {
+  int tensionParaInterpolar = obtenerTensionParaInterpolacion();
 
+  //y luego interpolo con ese valor
 }
 
 int hallarContribucionAmbiente()
@@ -44,4 +47,11 @@ int hallarContribucionAmbiente()
   int tensionConLaser = analogRead(pinTransistor);
 
   return (tensionConLaser - tensionSinLaser);
+}
+
+int obtenerTensionParaInterpolacion()
+{
+  int tensionEnBruto = analogRead(pinTransistor);
+
+  return (tensionEnBruto - contribucionAmbiente);
 }
