@@ -31,7 +31,7 @@ void setup()
 
   pinMode(pinLaser, OUTPUT);
   
-  Serial.println("Comenzando calibración. Se busca la contribución de la luz del ambiente.");
+  Serial.println("Comenzando calibración... Se busca la contribución de la luz del ambiente...");
   contribucionAmbiente = hallarContribucionAmbiente();
   Serial.println("Terminó la calibración.");
 }
@@ -73,6 +73,8 @@ void recalibrarSiSeMovio()
 
   if(entradaSerial == "S" || entradaSerial == "s")
   {
+    Serial.println("Comenzando recalibración...");
     contribucionAmbiente = hallarContribucionAmbiente();
+    Serial.println("Terminó la recalibración.");
   }
 }
