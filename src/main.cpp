@@ -6,6 +6,21 @@ const int pinLaser = A1;
 
 int contribucionAmbiente = 0;
 
+struct ParTensionDistancia
+{
+  int tension;
+  int distancia;
+};
+
+ParTensionDistancia tabla[] = {
+  //modificar cuando se tengan los valores reales
+  {100, 50},
+  {200, 40},
+  {300, 30},
+  {400, 20},
+  {500, 10}
+};
+
 int hallarContribucionAmbiente();
 
 void setup()
@@ -17,7 +32,7 @@ void setup()
 
 void loop()
 {
-  
+
 }
 
 int hallarContribucionAmbiente()
