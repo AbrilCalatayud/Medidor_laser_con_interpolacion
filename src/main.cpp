@@ -26,9 +26,13 @@ int obtenerTensionParaInterpolacion();
 
 void setup()
 {
+  Serial.begin(9600);
+
   pinMode(pinLaser, OUTPUT);
   
+  Serial.println("Comenzando calibración. Se busca la contribución de la luz del ambiente.");
   contribucionAmbiente = hallarContribucionAmbiente();
+  Serial.println("Terminó la calibración.");
 }
 
 void loop()
