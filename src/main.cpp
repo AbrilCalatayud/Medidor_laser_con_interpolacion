@@ -26,7 +26,7 @@ int tamanioTabla = 5; //modificable
 float hallarContribucionAmbiente();
 float obtenerTensionParaInterpolacion();
 bool comprobarValorEstaDentroDelRango(float);
-void interpolar(float);
+float interpolar(float);
 void limpiarBuffer();
 void esperarAccionDeUsuario();
 
@@ -47,7 +47,12 @@ void loop()
 
   if(comprobarValorEstaDentroDelRango(tensionParaInterpolar))
   {
-    interpolar(tensionParaInterpolar);
+    float distanciaCalculada = interpolar(tensionParaInterpolar);
+
+    Serial.print("Tensión medida: ");
+    Serial.println(tensionParaInterpolar);
+    Serial.print("Distancia caluclada: ");
+    Serial.println(distanciaCalculada);
   }
 
   limpiarBuffer();
@@ -79,11 +84,28 @@ bool comprobarValorEstaDentroDelRango(float tension)
 {
   if(tension < tabla[0].tension || tension > tabla[tamanioTabla-1].tension)
   {
-    Serial.println("La distancia está fuera del rango previsto.");
+    Serial.println("La distancia está fuera del rango previsto. Mueva el sistema o el objeto.");
     return false;
   }
 
   return true;
+}
+
+float interpolar(float tension)
+{
+  for (int i = 0; i < tamanioTabla - 1; i++)
+  {
+    if (tension >= tabla[i].tension && tension <= tabla[i+1].tension)
+    {
+
+      float x0 = tabla[i].tension;
+      float y0 = tabla[i].distancia;
+      float x1 = tabla[i+1].tension;
+      float y1 = tabla[i+1].distancia;
+
+      return y0 + (tension - x0) * (y1 - y0) / (x1 - x0);
+    }
+  }
 }
 
 void limpiarBuffer()
