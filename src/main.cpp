@@ -32,19 +32,17 @@ void setup()
   Serial.begin(9600);
 
   pinMode(pinLaser, OUTPUT);
-  
-  Serial.println("Comenzando calibración... Se busca la contribución de la luz del ambiente...");
-  contribucionAmbiente = hallarContribucionAmbiente();
-  Serial.println("Terminó la calibración.");
 }
 
 void loop()
 {
+  Serial.println("Comenzando calibración...");
+  contribucionAmbiente = hallarContribucionAmbiente();
+  Serial.println("Terminó la calibración.");
+
   float tensionParaInterpolar = obtenerTensionParaInterpolacion();
 
   //y luego interpolo con ese valor
-  
-  recalibrarSiSeMovio();
 }
 
 float hallarContribucionAmbiente()
@@ -65,18 +63,4 @@ float obtenerTensionParaInterpolacion()
   float tensionEnBruto = analogRead(pinTransistor);
 
   return (tensionEnBruto - contribucionAmbiente);
-}
-
-void recalibrarSiSeMovio()
-{
-  Serial.println("¿El sistema medidor sigue exactamente en el mismo lugar?");
-  Serial.println("Tocar S si es así, sino otra tecla.");
-  String entradaSerial = Serial.readString();
-
-  if(entradaSerial == "S" || entradaSerial == "s")
-  {
-    Serial.println("Comenzando recalibración...");
-    contribucionAmbiente = hallarContribucionAmbiente();
-    Serial.println("Terminó la recalibración.");
-  }
 }
