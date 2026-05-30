@@ -25,6 +25,8 @@ int tamanioTabla = 5; //modificable
 
 float hallarContribucionAmbiente();
 float obtenerTensionParaInterpolacion();
+bool comprobarValorEstaDentroDelRango(float);
+void interpolar(float);
 void limpiarBuffer();
 void esperarAccionDeUsuario();
 
@@ -43,7 +45,10 @@ void loop()
 
   float tensionParaInterpolar = obtenerTensionParaInterpolacion();
 
-  //y luego interpolo con ese valor
+  if(comprobarValorEstaDentroDelRango(tensionParaInterpolar))
+  {
+    interpolar(tensionParaInterpolar);
+  }
 
   limpiarBuffer();
   Serial.println("Presione una tecla para medir otra vez...");
@@ -68,6 +73,17 @@ float obtenerTensionParaInterpolacion()
   float tensionEnBruto = analogRead(pinTransistor);
 
   return (tensionEnBruto - contribucionAmbiente);
+}
+
+bool comprobarValorEstaDentroDelRango(float tension)
+{
+  if(tension < tabla[0].tension || tension > tabla[tamanioTabla-1].tension)
+  {
+    Serial.println("La distancia está fuera del rango previsto.");
+    return false;
+  }
+
+  return true;
 }
 
 void limpiarBuffer()
