@@ -25,6 +25,7 @@ int tamanioTabla = 5; //modificable
 
 float hallarContribucionAmbiente();
 float obtenerTensionParaInterpolacion();
+void limpiarBuffer();
 void esperarAccionDeUsuario();
 
 void setup()
@@ -44,6 +45,7 @@ void loop()
 
   //y luego interpolo con ese valor
 
+  limpiarBuffer();
   Serial.println("Presione una tecla para medir otra vez...");
   esperarAccionDeUsuario();
 }
@@ -68,9 +70,17 @@ float obtenerTensionParaInterpolacion()
   return (tensionEnBruto - contribucionAmbiente);
 }
 
+void limpiarBuffer()
+{
+  while(Serial.available() > 0)
+  {
+    Serial.read(); // consume caracter por caracter y deja el buffer sin nada al terminar
+  }
+}
+
 void esperarAccionDeUsuario()
 {
-  while (Serial.available() == 0)
+  while(Serial.available() == 0)
   {
     //No hace nada, solo espera a que haya algo en el buffer del serial
   }
