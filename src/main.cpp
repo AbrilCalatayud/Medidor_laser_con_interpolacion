@@ -25,7 +25,7 @@ int tamanioTabla = 5; //modificable
 
 float hallarContribucionAmbiente();
 float obtenerTensionParaInterpolacion();
-void recalibrarSiSeMovio();
+void esperarAccionDeUsuario();
 
 void setup()
 {
@@ -43,6 +43,9 @@ void loop()
   float tensionParaInterpolar = obtenerTensionParaInterpolacion();
 
   //y luego interpolo con ese valor
+
+  Serial.println("Presione una tecla para medir otra vez...");
+  esperarAccionDeUsuario();
 }
 
 float hallarContribucionAmbiente()
@@ -63,4 +66,12 @@ float obtenerTensionParaInterpolacion()
   float tensionEnBruto = analogRead(pinTransistor);
 
   return (tensionEnBruto - contribucionAmbiente);
+}
+
+void esperarAccionDeUsuario()
+{
+  while (Serial.available() == 0)
+  {
+    //No hace nada, solo espera a que haya algo en el buffer del serial
+  }
 }
