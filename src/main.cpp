@@ -34,6 +34,8 @@ void setup()
 {
   Serial.begin(9600);
 
+  pinMode(pinTransistor, INPUT);
+
   pinMode(pinLaser, OUTPUT);
 }
 
