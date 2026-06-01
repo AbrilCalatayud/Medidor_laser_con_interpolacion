@@ -2,7 +2,7 @@
 
 //cambiar cuando sepa a qué pines los voy a conectar
 const int pinFototransistor = A0;
-const int pinLaser = A1;
+const int pinLaser = 8;
 
 float contribucionAmbiente = 0;
 
