@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 //cambiar cuando sepa a qué pines los voy a conectar
-const int pinTransistor = A0;
+const int pinFototransistor = A0;
 const int pinLaser = A1;
 
 float contribucionAmbiente = 0;
@@ -34,7 +34,7 @@ void setup()
 {
   Serial.begin(9600);
 
-  pinMode(pinTransistor, INPUT);
+  pinMode(pinFototransistor, INPUT);
 
   pinMode(pinLaser, OUTPUT);
 }
@@ -66,18 +66,18 @@ float hallarContribucionAmbiente()
 {
   digitalWrite(pinLaser, LOW);
 
-  float tensionSinLaser = analogRead(pinTransistor);
+  float tensionSinLaser = analogRead(pinFototransistor);
 
   digitalWrite(pinLaser, HIGH);
 
-  float tensionConLaser = analogRead(pinTransistor);
+  float tensionConLaser = analogRead(pinFototransistor);
 
   return (tensionConLaser - tensionSinLaser);
 }
 
 float obtenerTensionParaInterpolacion()
 {
-  float tensionEnBruto = analogRead(pinTransistor);
+  float tensionEnBruto = analogRead(pinFototransistor);
 
   return (tensionEnBruto - contribucionAmbiente);
 }
